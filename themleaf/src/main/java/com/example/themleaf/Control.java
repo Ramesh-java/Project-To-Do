@@ -8,10 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +44,6 @@ public class Control {
     public String login(@RequestParam("mobile")String number, @RequestParam("password")String password, Model model, HttpSession session){
         User user=uservice.ValidateUser(number,password);
         if (user!=null){
-            //currentUser=user;
             session.setAttribute("user",user);
             List<Task>tasks=user.getTask();
             model.addAttribute("name",user.getName());
@@ -91,4 +87,6 @@ public class Control {
         tservice.deleteTask(id);
         return "redirect:/dashboard";
     }
+
+
 }
